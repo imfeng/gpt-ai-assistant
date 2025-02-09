@@ -44,10 +44,16 @@ client.interceptors.response.use(handleFulfilled, (err) => {
 const reply = ({
   replyToken,
   messages,
-}) => client.post('/v2/bot/message/reply', {
-  replyToken,
-  messages,
-});
+}) => {
+  console.log({
+    replyToken,
+    messages
+  });
+  return client.post('/v2/bot/message/reply', {
+    replyToken,
+    messages,
+  });
+}
 
 const fetchGroupSummary = ({
   groupId,
