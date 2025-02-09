@@ -28,7 +28,9 @@ app.get('/info', async (req, res) => {
 });
 
 app.post(config.APP_WEBHOOK_PATH, validateLineSignature, async (req, res) => {
+
   try {
+    if (config.APP_DEBUG) printPrompts();
     await storage.initialize();
     await handleEvents(req.body.events);
     res.sendStatus(200);
@@ -36,7 +38,6 @@ app.post(config.APP_WEBHOOK_PATH, validateLineSignature, async (req, res) => {
     console.error(err.message);
     res.sendStatus(500);
   }
-  if (config.APP_DEBUG) printPrompts();
 });
 
 if (config.APP_PORT) {
